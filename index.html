@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Free QR Code Generator — open source, offline, no tracking</title>
+<meta name="description" content="Open-source QR code generator that runs entirely in your browser: URL, text, WiFi, vCard, email, SMS and phone QR codes. PNG and SVG download, custom colors, no sign-up, no tracking, works offline.">
+<link rel="canonical" href="https://agentiloop.github.io/free-qr-code-generator/">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<style>
+*{box-sizing:border-box}
+body{margin:0;font:16px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;color:#1d2433;background:#f5f7fb}
+main{max-width:960px;margin:0 auto;padding:24px 16px 48px}
+h1{font-size:30px;margin:8px 0 4px}h2{font-size:20px;margin:32px 0 8px}
+.lead{color:#4a5468;margin:0 0 20px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+@media(max-width:720px){.grid{grid-template-columns:1fr}}
+.card{background:#fff;border:1px solid #dfe4ee;border-radius:12px;padding:18px}
+label{display:block;font-size:14px;font-weight:600;margin:10px 0 4px}
+input[type=text],input[type=url],input[type=email],input[type=tel],select,textarea{width:100%;padding:9px 10px;border:1px solid #c9d1e0;border-radius:8px;font:inherit}
+textarea{min-height:80px}
+.tabs{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:6px}
+.tabs button{border:1px solid #c9d1e0;background:#fff;border-radius:999px;padding:6px 12px;font:inherit;font-size:14px;cursor:pointer}
+.tabs button[aria-pressed=true]{background:#1f4fd8;border-color:#1f4fd8;color:#fff}
+.row{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.btn{background:#1f4fd8;color:#fff;border:0;border-radius:8px;padding:10px 16px;font:inherit;font-weight:600;cursor:pointer}
+.btn.alt{background:#fff;color:#1f4fd8;border:1px solid #1f4fd8}
+#pv{width:100%;max-width:320px;height:auto;display:block;margin:0 auto 14px;image-rendering:pixelated;border-radius:6px}
+.small{font-size:13px;color:#5b6578}
+.cta{background:#fff8e6;border:1px solid #f1d58a;border-radius:12px;padding:14px 18px;margin-top:24px}
+fieldset{border:0;padding:0;margin:0}[hidden]{display:none!important}
+footer{border-top:1px solid #dfe4ee;margin-top:40px;padding-top:16px;font-size:14px;color:#5b6578}
+a{color:#1f4fd8}
+</style>
+</head>
+<body>
+<main>
+  <h1>Free QR Code Generator</h1>
+  <p class="lead">Open source, runs 100% in your browser. Nothing you type is uploaded, there is no sign-up and no tracking, and it keeps working offline once loaded.</p>
+  <div class="grid">
+    <div class="card" id="gen">
+      <div class="tabs" role="group" aria-label="QR code type">
+        <button data-kind="url" aria-pressed="true">URL</button>
+        <button data-kind="text">Text</button>
+        <button data-kind="wifi">WiFi</button>
+        <button data-kind="vcard">Contact</button>
+        <button data-kind="email">Email</button>
+        <button data-kind="sms">SMS</button>
+        <button data-kind="tel">Phone</button>
+      </div>
+      <fieldset data-for="url"><label for="f_url">Website address</label><input id="f_url" type="url" value="https://github.com/AgentiLoop/free-qr-code-generator"></fieldset>
+      <fieldset data-for="text" hidden><label for="f_text">Text</label><textarea id="f_text">Hello!</textarea></fieldset>
+      <fieldset data-for="wifi" hidden>
+        <label for="f_ssid">Network name (SSID)</label><input id="f_ssid" type="text" value="MyHomeWiFi">
+        <label for="f_pass">Password</label><input id="f_pass" type="text">
+        <label for="f_enc">Security</label><select id="f_enc"><option value="WPA">WPA/WPA2/WPA3</option><option value="WEP">WEP</option><option value="nopass">None (open)</option></select>
+        <label class="small"><input id="f_hidden" type="checkbox"> Hidden network</label>
+      </fieldset>
+      <fieldset data-for="vcard" hidden>
+        <div class="row"><div style="flex:1"><label for="f_first">First name</label><input id="f_first" type="text"></div><div style="flex:1"><label for="f_last">Last name</label><input id="f_last" type="text"></div></div>
+        <label for="f_org">Company</label><input id="f_org" type="text">
+        <label for="f_phone">Phone</label><input id="f_phone" type="tel">
+        <label for="f_vemail">Email</label><input id="f_vemail" type="email">
+        <label for="f_website">Website</label><input id="f_website" type="url">
+      </fieldset>
+      <fieldset data-for="email" hidden>
+        <label for="f_to">To</label><input id="f_to" type="email">
+        <label for="f_subject">Subject</label><input id="f_subject" type="text">
+        <label for="f_body">Message</label><textarea id="f_body"></textarea>
+      </fieldset>
+      <fieldset data-for="sms" hidden>
+        <label for="f_smsphone">Phone number</label><input id="f_smsphone" type="tel">
+        <label for="f_message">Message</label><textarea id="f_message"></textarea>
+      </fieldset>
+      <fieldset data-for="tel" hidden><label for="f_tel">Phone number</label><input id="f_tel" type="tel"></fieldset>
+      <div class="row" style="margin-top:12px">
+        <label class="small" style="margin:0">Color <input id="f_fg" type="color" value="#000000"></label>
+        <label class="small" style="margin:0">Background <input id="f_bg" type="color" value="#ffffff"></label>
+        <label class="small" style="margin:0">Error correction <select id="f_ec" style="width:auto"><option value="L">L 7%</option><option value="M" selected>M 15%</option><option value="Q">Q 25%</option><option value="H">H 30%</option></select></label>
+      </div>
+    </div>
+    <div class="card">
+      <canvas id="pv" width="330" height="330" aria-label="QR code preview"></canvas>
+      <div class="row" style="justify-content:center"><button class="btn" id="dlPng">Download PNG</button><button class="btn alt" id="dlSvg">Download SVG</button></div>
+      <p class="small" id="info" style="text-align:center"></p>
+    </div>
+  </div>
+
+  <div class="cta">
+    <strong>Need to change where a printed QR code points?</strong> Codes made here are <em>static</em>: the content is baked in and works forever, but can't be edited. If you need an editable (dynamic) QR code with scan counts and no monthly subscription, see <a href="https://wasm5.com/?ref=github-pages">ForeverQR</a>, from the same authors: one-time payment, the code never expires.
+  </div>
+
+  <h2>Static QR codes never expire</h2>
+  <p>Every code generated on this page stores its content directly in the black-and-white pattern. There is no redirect server in the middle, so the code keeps working as long as the destination exists — no account or subscription can switch it off.</p>
+  <h2>Privacy</h2>
+  <p>The page is a single static HTML file plus the MIT-licensed <a href="https://github.com/kazuhikoarase/qrcode-generator">qrcode-generator</a> library by Kazuhiko Arase. It makes no network requests after loading: WiFi passwords and contact details never leave your device. <a href="https://github.com/AgentiLoop/free-qr-code-generator">View the source on GitHub</a>.</p>
+  <footer>MIT licensed · <a href="https://github.com/AgentiLoop/free-qr-code-generator">GitHub</a> · More free generators (menu, Google review, bulk CSV, printable signs): <a href="https://wasm5.com/qr-code-generators?ref=github-pages">wasm5.com/qr-code-generators</a> · "QR Code" is a registered trademark of DENSO WAVE INCORPORATED.</footer>
+</main>
+<script src="qrcode.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
