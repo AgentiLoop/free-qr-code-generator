@@ -40,6 +40,8 @@ The same authors run a free QR code image API with no key: `https://wasm5.com/ap
 
 ![Example QR code from the API](https://wasm5.com/api/qr?data=https%3A%2F%2Fagentiloop.github.io%2Ffree-qr-code-generator%2F&size=160&ref=github-readme)
 
+For unattended AI agents there is a pay-per-call version with no rate limit, paid in USDC on Base via [x402](https://x402.org) (no account or API key): `GET https://qrcode.pub/x402/qr?data=hello` ($0.005 per image), plus `/x402/extract` and `/x402/meta` for web pages. Manifest: [qrcode.pub/.well-known/x402](https://qrcode.pub/.well-known/x402), docs: [qrcode.pub/qr-code-api#x402](https://qrcode.pub/qr-code-api?ref=github#x402).
+
 ## License
 
 MIT. Includes [qrcode-generator](https://github.com/kazuhikoarase/qrcode-generator) by Kazuhiko Arase (MIT).
