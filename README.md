@@ -34,6 +34,12 @@ No build step and no dependencies: `index.html`, `app.js` and the bundled `qrcod
 
 Codes made here are static: they can't be changed after printing. If you need a dynamic QR code whose destination you can change later, with scan counts and no monthly subscription, see [ForeverQR](https://wasm5.com/?ref=github) (one-time payment, by the same authors). It also has free generators for restaurant menus, Google reviews, bulk CSV → ZIP and printable signs: [wasm5.com/qr-code-generators](https://wasm5.com/qr-code-generators?ref=github).
 
+## Need QR codes from a server?
+
+The same authors run a free QR code image API with no key: `https://wasm5.com/api/qr?data=hello&size=300&format=svg`. PNG or SVG, colors, error correction and margin. Docs: [wasm5.com/qr-code-api](https://wasm5.com/qr-code-api?ref=github).
+
+![Example QR code from the API](https://wasm5.com/api/qr?data=https%3A%2F%2Fagentiloop.github.io%2Ffree-qr-code-generator%2F&size=160&ref=github-readme)
+
 ## License
 
 MIT. Includes [qrcode-generator](https://github.com/kazuhikoarase/qrcode-generator) by Kazuhiko Arase (MIT).
