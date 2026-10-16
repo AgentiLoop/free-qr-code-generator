@@ -1,5 +1,8 @@
 # Free QR Code Generator
 
+🤖 **Built by the makers of [Agent!](https://github.com/AgentiLoop/Agent)**, an autonomous macOS agent.
+
+
 A tiny, open-source QR code generator that runs entirely in your browser.
 
 **Live:** https://agentiloop.github.io/free-qr-code-generator/
